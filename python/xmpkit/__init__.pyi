@@ -840,4 +840,34 @@ class XmpValue:
         def __len__(self, /) -> int: ...
         def __new__(cls, /, _0: dict[str, XmpValue]) -> XmpValue.Structure: ...
 
+def get_all_registered_namespaces() -> list[tuple[str, str]]:
+    """Get all registered namespaces from global registry
+
+    Returns a list of (uri, prefix) tuples for all registered namespaces.
+    """
+
+def get_builtin_namespace_uris() -> list[str]:
+    """Get all built-in namespace URIs
+
+    Returns a list of built-in namespace URIs.
+    """
+
+def get_global_namespace_prefix(uri: str) -> str | None:
+    """Get the prefix for a namespace `uri` from global registry"""
+
+def get_global_namespace_uri(prefix: str) -> str | None:
+    """Get the URI for a namespace `prefix` from global registry"""
+
+def is_namespace_registered(uri: str) -> bool:
+    """Check if a namespace `uri` is registered globally"""
+
+def register_namespace(uri: str, prefix: str) -> None:
+    """Register a namespace URI with a prefix
+
+    This is a convenience function that uses a global namespace map.
+    For per-instance namespace management, use `NamespaceMap` directly.
+
+    This function registers namespaces globally (per thread) for convenience.
+    """
+
 def __getattr__(name: str) -> Incomplete: ...

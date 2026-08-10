@@ -751,6 +751,7 @@ mod xmpkit {
 
     // Namespace
 
+    #[pyfunction]
     fn register_namespace(uri: &str, prefix: &str) -> PyResult<()> {
         match wrapped_xmpkit::register_namespace(uri, prefix) {
             Ok(v) => Ok(v),
@@ -758,22 +759,27 @@ mod xmpkit {
         }
     }
 
+    #[pyfunction]
     fn is_namespace_registered(uri: &str) -> bool {
         wrapped_xmpkit::is_namespace_registered(uri)
     }
 
+    #[pyfunction]
     fn get_global_namespace_prefix(uri: &str) -> Option<String> {
         wrapped_xmpkit::get_global_namespace_prefix(uri)
     }
 
+    #[pyfunction]
     fn get_global_namespace_uri(prefix: &str) -> Option<String> {
         wrapped_xmpkit::get_global_namespace_uri(prefix)
     }
 
+    #[pyfunction]
     fn get_all_registered_namespaces() -> Vec<(String, String)> {
         wrapped_xmpkit::get_all_registered_namespaces()
     }
 
+    #[pyfunction]
     fn get_builtin_namespace_uris() -> Vec<String> {
         wrapped_xmpkit::get_builtin_namespace_uris()
     }
