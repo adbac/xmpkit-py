@@ -5,8 +5,8 @@ use pyo3::types::PyType;
 use std::collections::HashMap;
 use wrapped_xmpkit::core::metadata::XmpProperty as wrapped_XmpProperty;
 use wrapped_xmpkit::{
-    Qualifier as wrapped_Qualifier, XmpDateTime as wrapped_XmpDateTime, XmpFile as wrapped_XmpFile,
-    XmpMeta as wrapped_XmpMeta, XmpOptions as wrapped_XmpOptions, XmpValue as wrapped_XmpValue,
+    XmpDateTime as wrapped_XmpDateTime, XmpFile as wrapped_XmpFile, XmpMeta as wrapped_XmpMeta,
+    XmpOptions as wrapped_XmpOptions, XmpValue as wrapped_XmpValue,
 };
 
 pyo3::create_exception!(xmpkit, XmpError, PyException);
