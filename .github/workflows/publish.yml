@@ -1,9 +1,8 @@
 name: Build and Publish Python Package
 
 on:
+  workflow_dispatch:
   push:
-    branches:
-      - 'main'
     tags:
       - 'v[0-9].*'
 
@@ -12,6 +11,7 @@ permissions:
 
 jobs:
   linux:
+    if: endsWith(github.event.base_ref, 'main')
     runs-on: ${{ matrix.platform.runner }}
     strategy:
       matrix:
@@ -54,6 +54,7 @@ jobs:
           path: dist
 
   musllinux:
+    if: endsWith(github.event.base_ref, 'main')
     runs-on: ${{ matrix.platform.runner }}
     strategy:
       matrix:
@@ -92,6 +93,7 @@ jobs:
           path: dist
 
   windows:
+    if: endsWith(github.event.base_ref, 'main')
     runs-on: ${{ matrix.platform.runner }}
     strategy:
       matrix:
@@ -134,6 +136,7 @@ jobs:
           path: dist
 
   macos:
+    if: endsWith(github.event.base_ref, 'main')
     runs-on: ${{ matrix.platform.runner }}
     strategy:
       matrix:
@@ -169,6 +172,7 @@ jobs:
           path: dist
 
   sdist:
+    if: endsWith(github.event.base_ref, 'main')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
@@ -186,7 +190,7 @@ jobs:
   publish-to-pypi:
     name: Publish to PyPI
     runs-on: ubuntu-latest
-    if: ${{ startsWith(github.ref, 'refs/tags/') || github.event_name == 'workflow_dispatch' }}
+    if: ${{ endsWith(github.event.base_ref, 'main') && (startsWith(github.ref, 'refs/tags/') || github.event_name == 'workflow_dispatch') }}
     needs: [linux, musllinux, windows, macos, sdist]
     environment: publish-to-pypi
     permissions:
@@ -210,6 +214,7 @@ jobs:
         run: uv publish --trusted-publishing always 'wheels-*/*'
 
   create-github-release:
+    if: endsWith(github.event.base_ref, 'main')
     name: Create GitHub Release
     needs:
       - publish-to-pypi
