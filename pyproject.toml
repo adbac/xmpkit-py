@@ -1,0 +1,23 @@
+[project]
+name = "xmpkit-py"
+version = "0.1.0"
+description = "Python bindings for xmpkit (Rust)"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = []
+
+[build-system]
+requires = ["maturin>=1.0,<2.0"]
+build-backend = "maturin"
+
+[tool.maturin]
+python-source = "python"
+features = ["pyo3/extension-module"]
+
+[tool.maturin.generate-ci.github]
+trusted-publishing = true
+publishing-environment = "release"
+all = "All"
+
+[dependency-groups]
+dev = ["maturin>=1.14.1"]

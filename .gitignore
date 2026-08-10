@@ -1,0 +1,11 @@
+.DS_Store
+
+/target
+
+*.sublime-project
+*.sublime-workspace
+
+.venv/
+
+dev/
+tests/
