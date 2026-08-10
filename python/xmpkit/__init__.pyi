@@ -840,6 +840,31 @@ class XmpValue:
         def __len__(self, /) -> int: ...
         def __new__(cls, /, _0: dict[str, XmpValue]) -> XmpValue.Structure: ...
 
+@final
+class NamespaceMap:
+    def __new__(cls, /) -> NamespaceMap:
+        """Create a new namespace map with built-in namespaces registered"""
+    def get_all_namespaces(self, /) -> list[tuple[str, str]]:
+        """Get all registered namespaces as a list of (uri, prefix) tuples"""
+    def get_prefix(self, /, uri: str) -> str | None:
+        """Get the prefix for a namespace `uri`"""
+    def get_uri(self, /, prefix: str) -> str | None:
+        """Get the URI for a namespace `prefix`"""
+    def has_prefix(self, /, prefix: str) -> bool:
+        """Check if a namespace `prefix` is registered"""
+    def has_uri(self, /, uri: str) -> bool:
+        """Check if a namespace `uri` is registered"""
+    def register(self, /, uri: str, prefix: str) -> None:
+        """Register a namespace URI with a prefix
+
+        Args:
+            uri: The namespace URI
+            prefix: The namespace prefix
+
+        Raises:
+            XmpError: If the prefix is already registered to a different URI
+        """
+
 def get_all_registered_namespaces() -> list[tuple[str, str]]:
     """Get all registered namespaces from global registry
 
@@ -865,7 +890,7 @@ def register_namespace(uri: str, prefix: str) -> None:
     """Register a namespace URI with a prefix
 
     This is a convenience function that uses a global namespace map.
-    For per-instance namespace management, use `NamespaceMap` directly.
+    For per-instance namespace management, use [`NamespaceMap`][] directly.
 
     This function registers namespaces globally (per thread) for convenience.
     """

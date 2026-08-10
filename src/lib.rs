@@ -4,6 +4,7 @@ use pyo3::prelude::*;
 use pyo3::types::PyType;
 use std::collections::HashMap;
 use wrapped_xmpkit::core::metadata::XmpProperty as wrapped_XmpProperty;
+use wrapped_xmpkit::core::namespace::NamespaceMap as wrapped_NamespaceMap;
 use wrapped_xmpkit::{
     XmpDateTime as wrapped_XmpDateTime, XmpFile as wrapped_XmpFile, XmpMeta as wrapped_XmpMeta,
     XmpOptions as wrapped_XmpOptions, XmpValue as wrapped_XmpValue,
@@ -750,6 +751,56 @@ mod xmpkit {
     }
 
     // Namespace
+
+    #[pyclass]
+    struct NamespaceMap {
+        wrapped: wrapped_NamespaceMap,
+    }
+
+    impl NamespaceMap {
+        fn wrap(wrapped: wrapped_NamespaceMap) -> Self {
+            Self { wrapped }
+        }
+
+        fn unwrap(self) -> wrapped_NamespaceMap {
+            self.wrapped
+        }
+    }
+
+    #[pymethods]
+    impl NamespaceMap {
+        #[new]
+        fn new() -> Self {
+            Self::wrap(wrapped_NamespaceMap::new())
+        }
+
+        fn register(&mut self, uri: &str, prefix: &str) -> PyResult<()> {
+            match self.wrapped.register(uri, prefix) {
+                Ok(v) => Ok(v),
+                Err(error) => Err(XmpError::new_err(error.to_string())),
+            }
+        }
+
+        fn get_prefix(&self, uri: &str) -> Option<&str> {
+            self.wrapped.get_prefix(uri)
+        }
+
+        fn get_uri(&self, prefix: &str) -> Option<&str> {
+            self.wrapped.get_uri(prefix)
+        }
+
+        fn has_uri(&self, uri: &str) -> bool {
+            self.wrapped.has_uri(uri)
+        }
+
+        fn has_prefix(&self, prefix: &str) -> bool {
+            self.wrapped.has_prefix(prefix)
+        }
+
+        fn get_all_namespaces(&self) -> Vec<(String, String)> {
+            self.wrapped.get_all_namespaces()
+        }
+    }
 
     #[pyfunction]
     fn register_namespace(uri: &str, prefix: &str) -> PyResult<()> {
