@@ -2,9 +2,28 @@
 name = "xmpkit-py"
 version = "0.1.1"
 description = "Python bindings for xmpkit (Rust)"
+authors = [{ name = "Adrien Bachelart", email = "hello@adrienbc.com" }]
+maintainers = [{ name = "Adrien Bachelart", email = "hello@adrienbc.com" }]
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = []
+classifiers = [
+    "Natural Language :: English",
+    "Operating System :: OS Independent",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Programming Language :: Rust",
+    "Topic :: Multimedia :: Graphics",
+    "Topic :: Software Development :: Libraries",
+]
+license = "MIT"
+license-files = ["LICEN[CS]E*"]
 
 [project.urls]
 Homepage = "https://github.com/adbac/xmpkit-py"
@@ -20,7 +39,7 @@ features = ["pyo3/extension-module"]
 
 [tool.maturin.generate-ci.github]
 trusted-publishing = true
-publishing-environment = "release"
+publishing-environment = "publish-to-pypi"
 all = "All"
 
 [dependency-groups]
