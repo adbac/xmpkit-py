@@ -43,4 +43,4 @@ publishing-environment = "publish-to-pypi"
 all = "All"
 
 [dependency-groups]
-dev = ["maturin>=1.14.1"]
+dev = ["maturin>=1.14.1", "mkdocstrings-python>=2.0.5", "zensical>=0.0.53"]
