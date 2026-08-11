@@ -221,7 +221,6 @@ jobs:
         with:
           tag_name: ${{ github.ref_name }}
           name: ${{ github.ref_name }}
-          working_directory: dist
-          files: wheels-*/*
+          files: dist/wheels-*/*
           draft: false
           prerelease: false
