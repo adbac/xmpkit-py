@@ -87,6 +87,7 @@ mod xmpkit {
         fn as_str(&self) -> Option<&str> {
             match self {
                 Self::String(s) => Some(s),
+                Self::DateTime(s) => Some(s),
                 _ => None,
             }
         }
