@@ -1,3 +1,5 @@
+"""Built-in XMP namespaces"""
+
 from typing import Final
 
 XMP: Final[str] = "http://ns.adobe.com/xap/1.0/"

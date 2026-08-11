@@ -1,3 +1,5 @@
+"""Python bindings for xmpkit (Rust)"""
+
 from collections.abc import Sequence
 from typing import Any, Final, final
 
