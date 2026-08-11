@@ -22,8 +22,10 @@ jobs:
 
       - uses: actions/checkout@v7
 
-      - name: Install uv
+      - name: Install uv and enable caching
         uses: astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9 # v9.0.0
+        with:
+          enable-cache: true
 
       - name: Set up Python
         run: uv python install
@@ -31,14 +33,11 @@ jobs:
       - name: Install project
         run: uv sync --locked --all-extras --dev
 
-      - name: Activate virtual environment
-        run: source .venv/bin/activate
-
       - name: Install package
-        run: maturin develop -r --uv
+        run: uv run maturin develop -r --uv
 
       - name: Build docs
-        run: zensical build --clean
+        run: uv run zensical build --clean
 
       - uses: actions/upload-pages-artifact@v5
         with:
