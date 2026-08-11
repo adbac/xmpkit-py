@@ -52,7 +52,7 @@ class XmpDateTime:
         - `YYYY-MM-DDThh:mm:ss+hh:mm` - timezone offset
         - `YYYY-MM-DDThh:mm:ss-hh:mm` - negative timezone offset
 
-        # Example::
+        Example::
 
             from xmpkit import XmpDateTime
 
@@ -159,7 +159,7 @@ class XmpFile:
     [`put_xmp`][] are not written to disk immediately. The file remains open
     and changes are only written when [`close`][] or [`try_close`][] is called.
 
-    # Example::
+    Example::
 
         from xmpkit import XmpFile, XmpOptions, XmpMeta, XmpValue
 
@@ -185,7 +185,7 @@ class XmpFile:
     def open(self, /, path: str) -> None:
         """Open a file from a `path`
 
-        # Example::
+        Example::
 
             from xmpkit import XmpFile
 
@@ -199,7 +199,7 @@ class XmpFile:
             path: The path to the file with the metadata
             options: The XMP options to open the file with
 
-        # Example::
+        Example::
 
             from xmpkit import XmpFile, XmpOptions
 
@@ -209,7 +209,7 @@ class XmpFile:
     def from_bytes(self, /, data: bytes) -> None:
         """Open a file from bytes represented by `data`
 
-        # Example::
+        Example::
 
             from xmpkit import XmpFile
 
@@ -228,7 +228,7 @@ class XmpFile:
             data: The bytes representing the file to open
             option: The XMP options to open the file with
 
-        # Example::
+        Example::
 
             from xmpkit import XmpFile, XmpOptions
 
@@ -255,7 +255,7 @@ class XmpFile:
           write changes to disk.
         - If the file was opened read-only, this only updates the in-memory metadata.
 
-        # Example::
+        Example::
 
             from xmpkit import XmpFile, XmpOptions, XmpMeta, XmpValue
 
@@ -276,7 +276,7 @@ class XmpFile:
     def write_to_bytes(self, /) -> bytes:
         """Write XMP metadata to bytes
 
-        # Example::
+        Example::
 
             from xmpkit import XmpFile
 
@@ -290,7 +290,7 @@ class XmpFile:
     def save(self, /, path: str) -> None:
         """Write XMP metadata to a file `path`
 
-        # Example::
+        Example::
 
             from xmpkit import XmpFile, XmpMeta
 
@@ -314,7 +314,7 @@ class XmpFile:
         This method ignores errors for backward compatibility. If you want to
         handle errors, use [`try_close`][] instead.
 
-        # Example::
+        Example::
 
             use xmpkit::{XmpFile, XmpOptions};
             # fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -336,7 +336,7 @@ class XmpFile:
         Raises:
             XmpError: If writing the file fails.
 
-        # Example::
+        Example::
 
             from xmpkit import XmpFile, XmpOptions
 
@@ -432,7 +432,7 @@ class XmpMeta:
             An XMP date/time object if the property exists and can be parsed,
                 `None` otherwise.
 
-        # Example::
+        Example::
 
             from xmpkit import XmpMeta, XmpValue, XmpDateTime
 
@@ -471,7 +471,7 @@ class XmpMeta:
                 language code used (may differ from requested).
                 `None` if the property doesn't exist or no matching language found.
 
-        # Example::
+        Example::
 
             from xmpkit import XmpMeta
 
@@ -567,7 +567,7 @@ class XmpMeta:
             path: The property path
             dt: The date/time value
 
-        # Example::
+        Example::
 
             from xmpkit import XmpMeta, XmpDateTime
 
@@ -609,7 +609,7 @@ class XmpMeta:
             specific_lang: Specific language code (e.g., "en-US"), required
             value: The text value to set
 
-        # Example::
+        Example::
 
             from xmpkit import XmpMeta, XmpValue
 
@@ -649,7 +649,7 @@ class XmpOptions:
     Use the builder pattern to configure options. These options control how
     file handlers read and process XMP metadata.
 
-    # Example::
+    Example::
 
         from xmpkit import XmpFile, XmpOptions
 
@@ -761,21 +761,25 @@ class XmpValue:
     """XMP value types
 
     This classes defines subclasses for the value types that can be stored in XMP properties.
+
+    All child classes inherit from this class, but the documentation doesn't allow for this
+    kind of recursive inheritance, so the child classes are typed this way.
+    The typing is still valid but just doesn't represent the full structure of the objects
     """
 
     def as_array(self, /) -> list[XmpValue] | None:
-        """Get the value as a list, if it is a [`XmpValue.Array`]."""
+        """Get the value as a list, if it is an [`Array`][]."""
     def as_bool(self, /) -> bool | None:
         """Get the value as a boolean, if it is a boolean type, or can be converted to."""
     def as_int(self, /) -> int | None:
         """Get the value as an integer, if it is an integer type, or can be converted to."""
     def as_str(self, /) -> str | None:
-        """Get the value as a string, if it is a string type"""
+        """Get the value as a string, if it is a string or date/time type"""
     def as_structure(self, /) -> dict[str, XmpValue] | None:
-        """Get the value as a dict, if it is a [`XmpValue.Structure`]."""
+        """Get the value as a dict, if it is a [`Structure`][]."""
 
     @final
-    class Array(XmpValue):
+    class Array:
         """Array of values"""
 
         __match_args__: Final = ("_0",)
@@ -784,9 +788,11 @@ class XmpValue:
         def __getitem__(self, key: int, /) -> Any: ...
         def __len__(self, /) -> int: ...
         def __new__(cls, /, _0: Sequence[XmpValue]) -> XmpValue.Array: ...
+        def as_array(self, /) -> list[XmpValue]:
+            """Get the value as a list."""
 
     @final
-    class Boolean(XmpValue):
+    class Boolean:
         """Boolean value"""
 
         __match_args__: Final = ("_0",)
@@ -795,9 +801,11 @@ class XmpValue:
         def __getitem__(self, key: int, /) -> Any: ...
         def __len__(self, /) -> int: ...
         def __new__(cls, /, _0: bool) -> XmpValue.Boolean: ...
+        def as_bool(self, /) -> bool:
+            """Get the value as a boolean."""
 
     @final
-    class DateTime(XmpValue):
+    class DateTime:
         """Date/time value (ISO 8601 format)"""
 
         __match_args__: Final = ("_0",)
@@ -806,9 +814,14 @@ class XmpValue:
         def __getitem__(self, key: int, /) -> Any: ...
         def __len__(self, /) -> int: ...
         def __new__(cls, /, _0: str) -> XmpValue.DateTime: ...
+        def as_str(self, /) -> str:
+            """Get the value as a string.
+
+            !!! version-added "Added in version 0.1.2"
+            """
 
     @final
-    class Integer(XmpValue):
+    class Integer:
         """Integer value"""
 
         __match_args__: Final = ("_0",)
@@ -817,9 +830,11 @@ class XmpValue:
         def __getitem__(self, key: int, /) -> Any: ...
         def __len__(self, /) -> int: ...
         def __new__(cls, /, _0: int) -> XmpValue.Integer: ...
+        def as_int(self, /) -> int:
+            """Get the value as an integer."""
 
     @final
-    class String(XmpValue):
+    class String:
         """String value"""
 
         __match_args__: Final = ("_0",)
@@ -828,9 +843,15 @@ class XmpValue:
         def __getitem__(self, key: int, /) -> Any: ...
         def __len__(self, /) -> int: ...
         def __new__(cls, /, _0: str) -> XmpValue.String: ...
+        def as_str(self, /) -> str:
+            """Get the value as a string."""
+        def as_int(self, /) -> int | None:
+            """Get the value as an integer, if it can be converted to."""
+        def as_bool(self, /) -> bool | None:
+            """Get the value as a boolean, if it can be converted to."""
 
     @final
-    class Structure(XmpValue):
+    class Structure:
         """Structure (key-value pairs)"""
 
         __match_args__: Final = ("_0",)
@@ -839,6 +860,8 @@ class XmpValue:
         def __getitem__(self, key: int, /) -> Any: ...
         def __len__(self, /) -> int: ...
         def __new__(cls, /, _0: dict[str, XmpValue]) -> XmpValue.Structure: ...
+        def as_structure(self, /) -> dict[str, XmpValue]:
+            """Get the value as a dict."""
 
 @final
 class NamespaceMap:
