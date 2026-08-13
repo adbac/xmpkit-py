@@ -15,7 +15,7 @@ docs_dir = "docs/"
 
 repo_url = "https://github.com/adbac/xmpkit-py"
 repo_name = "xmpkit-py"
-# edit_uri = "edit/main/docs/"
+edit_uri = "edit/main/docs/"
 
 nav = [
     { "Introduction" = "index.md" },
@@ -33,8 +33,8 @@ extra_css = ["assets/css/extra.css"]
 language = "en"
 features = [
     "announce.dismiss",
-    # "content.action.edit",
-    # "content.action.view",
+    "content.action.edit",
+    "content.action.view",
     "content.code.annotate",
     "content.code.copy",
     "content.code.select",
