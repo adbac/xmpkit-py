@@ -54,7 +54,7 @@ class XmpDateTime:
         - `YYYY-MM-DDThh:mm:ss+hh:mm` - timezone offset
         - `YYYY-MM-DDThh:mm:ss-hh:mm` - negative timezone offset
 
-        Example::
+        Examples::
 
             from xmpkit import XmpDateTime
 
@@ -161,7 +161,7 @@ class XmpFile:
     [`put_xmp`][] are not written to disk immediately. The file remains open
     and changes are only written when [`close`][] or [`try_close`][] is called.
 
-    Example::
+    Examples::
 
         from xmpkit import XmpFile, XmpOptions, XmpMeta, XmpValue
 
@@ -187,7 +187,7 @@ class XmpFile:
     def open(self, /, path: str) -> None:
         """Open a file from a `path`
 
-        Example::
+        Examples::
 
             from xmpkit import XmpFile
 
@@ -201,7 +201,7 @@ class XmpFile:
             path: The path to the file with the metadata
             options: The XMP options to open the file with
 
-        Example::
+        Examples::
 
             from xmpkit import XmpFile, XmpOptions
 
@@ -211,7 +211,7 @@ class XmpFile:
     def from_bytes(self, /, data: bytes) -> None:
         """Open a file from bytes represented by `data`
 
-        Example::
+        Examples::
 
             from xmpkit import XmpFile
 
@@ -230,7 +230,7 @@ class XmpFile:
             data: The bytes representing the file to open
             option: The XMP options to open the file with
 
-        Example::
+        Examples::
 
             from xmpkit import XmpFile, XmpOptions
 
@@ -257,7 +257,7 @@ class XmpFile:
           write changes to disk.
         - If the file was opened read-only, this only updates the in-memory metadata.
 
-        Example::
+        Examples::
 
             from xmpkit import XmpFile, XmpOptions, XmpMeta, XmpValue
 
@@ -278,7 +278,7 @@ class XmpFile:
     def write_to_bytes(self, /) -> bytes:
         """Write XMP metadata to bytes
 
-        Example::
+        Examples::
 
             from xmpkit import XmpFile
 
@@ -292,7 +292,7 @@ class XmpFile:
     def save(self, /, path: str) -> None:
         """Write XMP metadata to a file `path`
 
-        Example::
+        Examples::
 
             from xmpkit import XmpFile, XmpMeta
 
@@ -316,7 +316,7 @@ class XmpFile:
         This method ignores errors for backward compatibility. If you want to
         handle errors, use [`try_close`][] instead.
 
-        Example::
+        Examples::
 
             use xmpkit::{XmpFile, XmpOptions};
             # fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -338,7 +338,7 @@ class XmpFile:
         Raises:
             XmpError: If writing the file fails.
 
-        Example::
+        Examples::
 
             from xmpkit import XmpFile, XmpOptions
 
@@ -434,7 +434,7 @@ class XmpMeta:
             An XMP date/time object if the property exists and can be parsed,
                 `None` otherwise.
 
-        Example::
+        Examples::
 
             from xmpkit import XmpMeta, XmpValue, XmpDateTime
 
@@ -473,7 +473,7 @@ class XmpMeta:
                 language code used (may differ from requested).
                 `None` if the property doesn't exist or no matching language found.
 
-        Example::
+        Examples::
 
             from xmpkit import XmpMeta
 
@@ -569,7 +569,7 @@ class XmpMeta:
             path: The property path
             dt: The date/time value
 
-        Example::
+        Examples::
 
             from xmpkit import XmpMeta, XmpDateTime
 
@@ -611,7 +611,7 @@ class XmpMeta:
             specific_lang: Specific language code (e.g., "en-US"), required
             value: The text value to set
 
-        Example::
+        Examples::
 
             from xmpkit import XmpMeta, XmpValue
 
@@ -651,7 +651,7 @@ class XmpOptions:
     Use the builder pattern to configure options. These options control how
     file handlers read and process XMP metadata.
 
-    Example::
+    Examples::
 
         from xmpkit import XmpFile, XmpOptions
 
