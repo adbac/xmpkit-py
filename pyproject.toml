@@ -1,6 +1,6 @@
 [project]
 name = "xmpkit-py"
-version = "0.1.2"
+version = "0.1.3"
 description = "Python bindings for xmpkit (Rust)"
 authors = [{ name = "Adrien Bachelart", email = "hello@adrienbc.com" }]
 maintainers = [{ name = "Adrien Bachelart", email = "hello@adrienbc.com" }]
