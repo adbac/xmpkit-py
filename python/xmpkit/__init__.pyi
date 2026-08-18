@@ -1,9 +1,18 @@
 """Python bindings for xmpkit (Rust)"""
 
 from collections.abc import Sequence
-from typing import Any, Final, final
+from typing import Any, Final, TypeAlias, final
 
 from _typeshed import Incomplete
+
+XmpValueType: TypeAlias = (
+    XmpValue.Array
+    | XmpValue.Boolean
+    | XmpValue.DateTime
+    | XmpValue.Integer
+    | XmpValue.String
+    | XmpValue.Structure
+)
 
 class XmpError(Exception):
     """Error type for XMP operations"""
@@ -370,7 +379,9 @@ class XmpMeta:
     def about_uri(self, /, uri: str) -> None: ...
     def all_properties(self, /) -> list[XmpProperty]:
         """Returns all top-level properties in this metadata object."""
-    def append_array_item(self, /, namespace: str, path: str, value: XmpValue) -> None:
+    def append_array_item(
+        self, /, namespace: str, path: str, value: XmpValueType
+    ) -> None:
         """Append an item to an array property
 
         Args:
@@ -405,7 +416,7 @@ class XmpMeta:
         """
     def get_array_item(
         self, /, namespace: str, path: str, index: int
-    ) -> XmpValue | None:
+    ) -> XmpValueType | None:
         """Get an array item by index
 
         Args:
@@ -494,7 +505,7 @@ class XmpMeta:
             assert value == "Default Title"
             assert lang == "x-default"
         """
-    def get_property(self, /, namespace: str, path: str) -> XmpValue | None:
+    def get_property(self, /, namespace: str, path: str) -> XmpValueType | None:
         """Get a property value. It will return an [`XmpValue.Array`][], [`XmpValue.Structure`][] or an [`XmpValue.String`][].
 
         Args:
@@ -503,7 +514,7 @@ class XmpMeta:
         """
     def get_struct_field(
         self, /, namespace: str, struct_path: str, field_name: str
-    ) -> XmpValue | None:
+    ) -> XmpValueType | None:
         """Get a structure field value
 
         Args:
@@ -519,7 +530,7 @@ class XmpMeta:
             path: The property path
         """
     def insert_array_item(
-        self, /, namespace: str, path: str, index: int, value: XmpValue
+        self, /, namespace: str, path: str, index: int, value: XmpValueType
     ) -> None:
         """Insert an item into an array property at a specific index
 
@@ -624,7 +635,7 @@ class XmpMeta:
                 "Default Title"
             )
         """
-    def set_property(self, /, namespace: str, path: str, value: XmpValue) -> None:
+    def set_property(self, /, namespace: str, path: str, value: XmpValueType) -> None:
         """Set a property value
 
         Args:
@@ -633,7 +644,7 @@ class XmpMeta:
             value: The value to set
         """
     def set_struct_field(
-        self, /, namespace: str, struct_path: str, field_name: str, value: XmpValue
+        self, /, namespace: str, struct_path: str, field_name: str, value: XmpValueType
     ) -> None:
         """Set a structure field value
 
@@ -747,7 +758,9 @@ class XmpOptions:
 @final
 class XmpProperty:
     """A property entry produced by iterating an [`XmpMeta`][] instance."""
-    def __new__(cls, /, namespace_uri: str, name: str, value: XmpValue) -> XmpProperty:
+    def __new__(
+        cls, /, namespace_uri: str, name: str, value: XmpValueType
+    ) -> XmpProperty:
         """Create a new XMP property object from the provided values"""
     @property
     def name(self, /) -> str:
@@ -756,7 +769,7 @@ class XmpProperty:
     def namespace_uri(self, /) -> str:
         """Expanded namespace URI for the property (e.g., `http://ns.adobe.com/xap/1.0/`)"""
     @property
-    def value(self, /) -> XmpValue:
+    def value(self, /) -> XmpValueType:
         """Property value"""
 
 class XmpValue:
@@ -769,7 +782,7 @@ class XmpValue:
     The typing is still valid but just doesn't represent the full structure of the objects
     """
 
-    def as_array(self, /) -> list[XmpValue] | None:
+    def as_array(self, /) -> list[XmpValueType] | None:
         """Get the value as a list, if it is an [`Array`][]."""
     def as_bool(self, /) -> bool | None:
         """Get the value as a boolean, if it is a boolean type, or can be converted to."""
@@ -777,7 +790,7 @@ class XmpValue:
         """Get the value as an integer, if it is an integer type, or can be converted to."""
     def as_str(self, /) -> str | None:
         """Get the value as a string, if it is a string or date/time type"""
-    def as_structure(self, /) -> dict[str, XmpValue] | None:
+    def as_structure(self, /) -> dict[str, XmpValueType] | None:
         """Get the value as a dict, if it is a [`Structure`][]."""
 
     @final
@@ -786,11 +799,11 @@ class XmpValue:
 
         __match_args__: Final = ("_0",)
         @property
-        def _0(self, /) -> list[XmpValue]: ...
+        def _0(self, /) -> list[XmpValueType]: ...
         def __getitem__(self, key: int, /) -> Any: ...
         def __len__(self, /) -> int: ...
-        def __new__(cls, /, _0: Sequence[XmpValue]) -> XmpValue.Array: ...
-        def as_array(self, /) -> list[XmpValue]:
+        def __new__(cls, /, _0: Sequence[XmpValueType]) -> XmpValue.Array: ...
+        def as_array(self, /) -> list[XmpValueType]:
             """Get the value as a list."""
 
     @final
@@ -858,11 +871,11 @@ class XmpValue:
 
         __match_args__: Final = ("_0",)
         @property
-        def _0(self, /) -> dict[str, XmpValue]: ...
+        def _0(self, /) -> dict[str, XmpValueType]: ...
         def __getitem__(self, key: int, /) -> Any: ...
         def __len__(self, /) -> int: ...
-        def __new__(cls, /, _0: dict[str, XmpValue]) -> XmpValue.Structure: ...
-        def as_structure(self, /) -> dict[str, XmpValue]:
+        def __new__(cls, /, _0: dict[str, XmpValueType]) -> XmpValue.Structure: ...
+        def as_structure(self, /) -> dict[str, XmpValueType]:
             """Get the value as a dict."""
 
 @final
