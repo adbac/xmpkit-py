@@ -316,7 +316,7 @@ class XmpFile:
 
         Performs any necessary output to the file and closes it. Files that are
         opened for update are written to only when closing. If the file is opened
-        for read-only access (using [`XmpOptions.with_for_read()`][]), the disk
+        for read-only access (using [`XmpOptions.with_for_read`][]), the disk
         file is closed immediately after reading the data from it; the `XmpFile`
         object, however, remains in the open state. You must call [`close`][]
         when finished using it.
