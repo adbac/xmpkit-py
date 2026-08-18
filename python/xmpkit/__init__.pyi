@@ -13,6 +13,7 @@ XmpValueType: TypeAlias = (
     | XmpValue.String
     | XmpValue.Structure
 )
+"""Subclasses of [`XmpValue`][]."""
 
 class XmpError(Exception):
     """Error type for XMP operations"""
