@@ -16,7 +16,7 @@ XmpValueType: TypeAlias = (
 """Subclasses of [`XmpValue`][]."""
 
 class XmpError(Exception):
-    """Error type for XMP operations"""
+    """Error type for XMP operations."""
 
 @final
 class XmpDateTime:
