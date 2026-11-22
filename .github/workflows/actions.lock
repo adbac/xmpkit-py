@@ -18,6 +18,8 @@ workflows:
         - 'astral-sh/setup-uv@v7.6.0'
         - 'pyo3/maturin-action@v1.51.0'
         - 'softprops/action-gh-release@v3.0.4'
+    '.github/workflows/verify-lockfile.yml':
+        - 'actions/checkout@v7.0.1'
 dependencies:
     'actions/attest@v4.2.2':
         ref: 'v4.2.2'
