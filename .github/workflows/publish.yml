@@ -227,6 +227,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Create release
-        run: gh release create ${{ github.ref_name }} './dist/wheels-*/*' --generate-notes --title ${{ github.ref_name }}
+        run: gh release create ${RELEASE_TAG} './dist/wheels-*/*' --generate-notes --title ${RELEASE_TAG}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RELEASE_TAG: ${{ github.ref_name }}
