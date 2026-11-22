@@ -17,7 +17,6 @@ workflows:
         - 'actions/upload-artifact@v7.0.2'
         - 'astral-sh/setup-uv@v7.6.0'
         - 'pyo3/maturin-action@v1.51.0'
-        - 'softprops/action-gh-release@v3.0.4'
     '.github/workflows/verify-lockfile.yml':
         - 'actions/checkout@v7.0.1'
     '.github/workflows/zizmor.yml':
@@ -91,11 +90,6 @@ dependencies:
         commit: 'sha1-e83996d129638aa358a18fbd1dfb82f0b0fb5d3b'
         owner_id: 28156855
         repo_id: 363801746
-    'softprops/action-gh-release@v3.0.4':
-        ref: 'v3.0.4'
-        commit: 'sha1-8a0cd651e5b2365bd640854a3fa5dfc70e4875f3'
-        owner_id: 2242
-        repo_id: 204253808
     'zizmorcore/zizmor-action@v0.8.1':
         ref: 'v0.8.1'
         commit: 'sha1-45d7276c9ca790aabd705e31ca99c6185c3e76dd'
