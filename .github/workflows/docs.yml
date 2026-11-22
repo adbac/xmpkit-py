@@ -18,12 +18,12 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/configure-pages@v6
+      - uses: actions/configure-pages@v6.0.0
 
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@v7.0.1
 
       - name: Install uv and enable caching
-        uses: astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9 # v9.0.0
+        uses: astral-sh/setup-uv@v9.0.0
         with:
           enable-cache: true
 
@@ -39,9 +39,9 @@ jobs:
       - name: Build docs
         run: uv run zensical build --clean
 
-      - uses: actions/upload-pages-artifact@v5
+      - uses: actions/upload-pages-artifact@v5.0.0
         with:
           path: site
 
-      - uses: actions/deploy-pages@v5
+      - uses: actions/deploy-pages@v5.0.1
         id: deployment
