@@ -6,13 +6,14 @@ on:
     tags:
       - "v[0-9].*"
 
-permissions:
-  contents: write
+permissions: {}
 
 cache-mode: none
 
 jobs:
   linux:
+    permissions:
+      contents: write
     runs-on: ${{ matrix.platform.runner }}
     strategy:
       matrix:
@@ -57,6 +58,8 @@ jobs:
           path: dist
 
   musllinux:
+    permissions:
+      contents: write
     runs-on: ${{ matrix.platform.runner }}
     strategy:
       matrix:
@@ -97,6 +100,8 @@ jobs:
           path: dist
 
   windows:
+    permissions:
+      contents: write
     runs-on: ${{ matrix.platform.runner }}
     strategy:
       matrix:
@@ -141,6 +146,8 @@ jobs:
           path: dist
 
   macos:
+    permissions:
+      contents: write
     runs-on: ${{ matrix.platform.runner }}
     strategy:
       matrix:
@@ -178,6 +185,8 @@ jobs:
           path: dist
 
   sdist:
+    permissions:
+      contents: write
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7.0.1
@@ -221,6 +230,8 @@ jobs:
         run: uv publish --trusted-publishing always 'wheels-*/*'
 
   create-github-release:
+    permissions:
+      contents: write
     name: Create GitHub Release
     needs:
       - publish-to-pypi
