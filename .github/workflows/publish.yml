@@ -227,12 +227,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Create release
-        uses: softprops/action-gh-release@v3.0.4
+        run: gh release create ${{ github.ref_name }} './dist/wheels-*/*' --generate-notes --title ${{ github.ref_name }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.ref_name }}
-          name: ${{ github.ref_name }}
-          files: dist/wheels-*/*
-          draft: false
-          prerelease: false
